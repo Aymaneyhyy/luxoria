@@ -1,0 +1,114 @@
+import React from 'react';
+import { useForm } from '@inertiajs/react';
+import { Lock, Mail, ShieldCheck, ArrowRight } from 'lucide-react';
+
+export default function Login() {
+    const { data, setData, post, processing, errors } = useForm({
+        email: 'admin@luxoria.com',
+        password: 'password123',
+        remember: true,
+    });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        post('/admin/login');
+    };
+
+    return (
+        <div className="min-h-screen bg-[#0A0A0B] text-slate-100 flex items-center justify-center p-4 selection:bg-[#D4AF37] selection:text-black">
+            
+            <div className="w-full max-w-md">
+                
+                {/* Brand Emblem Header */}
+                <div className="text-center mb-8">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#D4AF37] to-[#996515] p-0.5 mx-auto mb-4 shadow-2xl">
+                        <div className="w-full h-full bg-[#0A0A0B] rounded-[14px] flex items-center justify-center">
+                            <span className="font-serif font-bold text-2xl text-[#D4AF37]">L</span>
+                        </div>
+                    </div>
+                    <h1 className="font-serif text-3xl font-bold tracking-widest text-white">LUXORIA</h1>
+                    <p className="text-xs uppercase tracking-[0.2em] text-[#D4AF37] mt-1 font-semibold">
+                        Portail d'Administration Executive
+                    </p>
+                </div>
+
+                {/* Login Glass Card */}
+                <div className="glass-card p-8 rounded-2xl border border-white/10 shadow-2xl">
+                    
+                    <h2 className="font-serif text-xl font-bold text-white mb-2">Authentification Sécurisée</h2>
+                    <p className="text-xs text-slate-400 mb-6">
+                        Accès réservé aux administrateurs de la société LUXORIA.
+                    </p>
+
+                    {/* Pre-filled credentials helper */}
+                    <div className="mb-6 bg-[#0A0A0B] border border-[#D4AF37]/30 p-3.5 rounded-xl text-xs text-slate-300">
+                        <div className="flex items-center gap-2 text-[#D4AF37] font-semibold text-[11px] uppercase tracking-wider mb-1">
+                            <ShieldCheck className="w-4 h-4" />
+                            Identifiants de Démonstration :
+                        </div>
+                        <div>Email: <code className="text-white font-mono bg-white/10 px-1.5 py-0.5 rounded">admin@luxoria.com</code></div>
+                        <div className="mt-1">Mot de passe: <code className="text-white font-mono bg-white/10 px-1.5 py-0.5 rounded">password123</code></div>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="space-y-5">
+                        
+                        <div>
+                            <label className="block text-xs font-medium text-slate-300 mb-2">Adresse Email</label>
+                            <div className="relative">
+                                <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                                <input
+                                    type="email"
+                                    value={data.email}
+                                    onChange={(e) => setData('email', e.target.value)}
+                                    required
+                                    className="w-full bg-[#0A0A0B] border border-white/10 rounded-xl pl-10 pr-4 py-3 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-[#D4AF37]"
+                                />
+                            </div>
+                            {errors.email && <div className="text-red-400 text-[10px] mt-1">{errors.email}</div>}
+                        </div>
+
+                        <div>
+                            <label className="block text-xs font-medium text-slate-300 mb-2">Mot de passe (Bcrypt)</label>
+                            <div className="relative">
+                                <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                                <input
+                                    type="password"
+                                    value={data.password}
+                                    onChange={(e) => setData('password', e.target.value)}
+                                    required
+                                    className="w-full bg-[#0A0A0B] border border-white/10 rounded-xl pl-10 pr-4 py-3 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-[#D4AF37]"
+                                />
+                            </div>
+                            {errors.password && <div className="text-red-400 text-[10px] mt-1">{errors.password}</div>}
+                        </div>
+
+                        <div className="flex items-center justify-between text-xs text-slate-400 pt-1">
+                            <label className="flex items-center gap-2 cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    checked={data.remember}
+                                    onChange={(e) => setData('remember', e.target.checked)}
+                                    className="rounded border-white/10 bg-[#0A0A0B] text-[#D4AF37] focus:ring-0"
+                                />
+                                <span>Se souvenir de moi</span>
+                            </label>
+                        </div>
+
+                        <button
+                            type="submit"
+                            disabled={processing}
+                            className="w-full py-3.5 rounded-xl text-xs font-semibold uppercase tracking-wider text-black bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#C5A059] hover:brightness-110 shadow-xl transition-all flex items-center justify-center gap-2"
+                        >
+                            <span>Se Connecter au Dashboard</span>
+                            <ArrowRight className="w-4 h-4" />
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    );
+}
