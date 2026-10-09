@@ -1,0 +1,12 @@
+/.phpunit.cache
+/.phpunit.result.cache
+/vendor
+.env
+.env.backup
+.env.production
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+*.log
+.DS_Store
