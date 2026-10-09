@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Directeur Général LUXORIA',
                 'role' => 'admin',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('Luxoria2026#SecurePass!'),
                 'email_verified_at' => now(),
             ]
         );
