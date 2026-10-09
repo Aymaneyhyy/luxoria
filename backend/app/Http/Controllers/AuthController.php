@@ -29,10 +29,10 @@ class AuthController extends Controller
             $user = Auth::user();
 
             if ($user->isAdmin() || $user->isAgent()) {
-                return redirect()->intended(route('admin.dashboard'));
+                return redirect()->route('admin.dashboard');
             }
 
-            return redirect()->intended(route('home'))->with('success', 'Bienvenue sur votre espace privé LUXORIA, ' . $user->name);
+            return redirect()->route('home');
         }
 
         return back()->withErrors([

@@ -13,7 +13,11 @@ export default function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post('/admin/login');
+        post('/admin/login', {
+            onSuccess: () => {
+                window.location.href = '/admin/dashboard';
+            },
+        });
     };
 
     return (
