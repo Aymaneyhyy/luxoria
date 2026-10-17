@@ -12,8 +12,10 @@ services:
       - key: APP_DEBUG
         value: "false"
       - key: APP_KEY
-        generateValue: true
+        value: base64:ksD1f7BzRSPzIo3nI/abSzsXxEUsFHIBBhMNjUWIf0I=
       - key: DB_CONNECTION
         value: sqlite
       - key: DB_DATABASE
         value: /var/www/html/backend/database/database.sqlite
+      - key: PHP_CLI_SERVER_WORKERS
+        value: "4"

@@ -41,6 +41,11 @@ RUN mkdir -p storage/framework/views storage/framework/sessions storage/framewor
     && touch database/database.sqlite \
     && chmod -R 777 storage database
 
-EXPOSE 8000
+# Copy entrypoint script and ensure unix line endings
+COPY docker-entrypoint.sh /var/www/html/backend/docker-entrypoint.sh
+RUN sed -i 's/\r$//' /var/www/html/backend/docker-entrypoint.sh \
+    && chmod +x /var/www/html/backend/docker-entrypoint.sh
 
-CMD ["sh", "-c", "php artisan migrate --force --seed && php artisan serve --host=0.0.0.0 --port=8000"]
+EXPOSE 8000 10000
+
+ENTRYPOINT ["/var/www/html/backend/docker-entrypoint.sh"]
