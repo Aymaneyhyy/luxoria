@@ -1,44 +1,63 @@
-# 🚀 Guide de Déploiement Cloud 24/7 - LUXORIA
+# 🌐 LUXORIA - Hébergement Serveur Permanent Cloud 24/7
 
-Ce guide vous explique comment rendre votre site **LUXORIA** accessible en ligne 24h/24 et 7j/7 sur Internet, sans garder votre ordinateur allumé et sans lancer de serveur manuel.
+Ce guide vous permet d'héberger votre application **LUXORIA** sur un serveur permanent dans le cloud, **accessible 24h/24 et 7j/7 depuis n'importe où**, **sans avoir besoin de laisser votre ordinateur allumé**.
 
 ---
 
-## 🌟 Méthode 1 : Déploiement Gratuit 24/7 sur Render.com (Recommandé)
+## 🚀 Option 1 : Déploiement Gratuit sur Render.com (100% Gratuit, SANS Carte Bancaire)
 
-### Étape 1 : Publier votre code sur GitHub
-1. Si ce n'est pas déjà fait, créez un dépôt sur [GitHub](https://github.com/new) nommé `luxoria`.
-2. Poussez votre code vers GitHub avec les commandes suivantes :
+Votre code est déjà synchronisé sur GitHub : [https://github.com/Aymaneyhyy/luxoria](https://github.com/Aymaneyhyy/luxoria).
+
+Il vous suffit de faire ces **3 étapes simples** :
+
+### 1. Se connecter à Render
+- Rendez-vous sur **[dashboard.render.com](https://dashboard.render.com/)**
+- Cliquez sur **"Sign in with GitHub"** (votre compte GitHub).
+
+### 2. Créer le Service Web
+- En haut à droite, cliquez sur le bouton bleu **"New +"** puis choisissez **"Web Service"**.
+- Dans la liste de vos dépôts GitHub, cliquez sur **"Connect"** à côté de **`luxoria`** (ou `Aymaneyhyy/luxoria`).
+
+### 3. Valider la Configuration (Automatique)
+Render lit automatiquement le fichier `Dockerfile` préparé dans votre projet :
+- **Name** : `luxoria` (ou le nom de votre choix)
+- **Region** : Frankfurt (EU Central) ou Oregon
+- **Branch** : `main`
+- **Runtime** : `Docker`
+- **Instance Type** : `Free` ($0/mois - aucune carte bancaire demandée)
+- Cliquez sur **"Deploy Web Service"** tout en bas.
+
+⏱️ **Temps d'attente :** 3 à 4 minutes pour la première compilation (Node.js + Laravel + Base SQLite).
+
+🎉 **Résultat :** Render vous donnera une adresse permanente en HTTPS (ex : `https://luxoria-app.onrender.com`).
+- Votre site sera en ligne en continu 24h/24.
+- Votre ordinateur peut être éteint !
+
+> **Note sur le plan gratuit Render :**  
+> Si personne ne visite le site pendant plus de 15 minutes, le serveur se met en veille économique. Dès qu'un visiteur arrive sur l'URL, il se réveille automatiquement en ~30 secondes.
+
+---
+
+## ⚡ Option 2 : Serveur Dédié 24/7 Sans Veille (VPS Cloud - 3€ à 4€/mois)
+
+Si vous souhaitez que votre site ne se mette **jamais en veille**, qu'il réponde instantanément en 50ms et que vous puissiez lui associer votre propre nom de domaine (ex: `www.luxoria.ma` ou `www.luxoria.fr`) :
+
+1. Prenez un VPS chez **Hostinger**, **OVHcloud** ou **Hetzner** (~3,50€/mois).
+2. Lancez simplement Docker :
    ```bash
-   git add .
-   git commit -m "Preparation du deploiement cloud"
-   git push origin main
+   git clone https://github.com/Aymaneyhyy/luxoria.git
+   cd luxoria
+   docker build -t luxoria .
+   docker run -d -p 80:8000 --restart always luxoria
    ```
-
-### Étape 2 : Lancer le service sur Render
-1. Connectez-vous sur [Render.com](https://dashboard.render.com/).
-2. Cliquez sur **New +** > **Web Service**.
-3. Connectez votre compte GitHub et sélectionnez le dépôt **`luxoria`**.
-4. Dans l'option **Runtime**, choisissez **`Docker`**. (Render détectera automatiquement le fichier `Dockerfile` créé à la racine).
-5. Cliquez sur **Create Web Service**.
-
-🎉 **C'est terminé !** Render va automatiquement construire l'application et vous fournir une URL publique permanente en `https://luxoria-xxxx.onrender.com`.
+3. Votre site est actif en permanence avec une IP fixe et sans aucune interruption.
 
 ---
 
-## 🚄 Méthode 2 : Déploiement sur Railway.app
+## 🔑 Identifiants d'accès pré-configurés (Back-office)
 
-1. Rendez-vous sur [Railway.app](https://railway.app/).
-2. Cliquez sur **New Project** > **Deploy from GitHub repo**.
-3. Sélectionnez le dépôt `luxoria`.
-4. Railway détectera le `Dockerfile` et déploiera le site automatiquement en 2 minutes.
+Une fois déployé, vous pouvez vous connecter à l'espace d'administration :
+- **URL Administration** : `https://votre-url.onrender.com/admin/login`
+- **Email** : `admin@luxoria.com`
+- **Mot de passe** : `Luxoria2026#SecurePass!`
 
----
-
-## 📁 Méthode 3 : Hébergement Web Classique (Hostinger / cPanel / OVH)
-
-Si vous disposez d'un hébergement Web traditionnel :
-1. Les fichiers frontend de production sont générés dans `backend/public/build/`.
-2. Envoyez l'intégralité du contenu du dossier **`backend/`** sur votre serveur FTP.
-3. Placez le dossier `public/` comme racine du nom de domaine.
-4. Créez une base de données MySQL sur votre hébergeur et renseignez les identifiants dans le fichier `.env` sur le serveur.
