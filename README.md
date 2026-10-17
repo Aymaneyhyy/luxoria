@@ -1,3 +1,13 @@
+---
+title: LUXORIA Prestige
+emoji: 🏰
+colorFrom: yellow
+colorTo: gray
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # LUXORIA - Plateforme Immobilière de Prestige
 
 Projet découpé en deux dossiers autonomes :

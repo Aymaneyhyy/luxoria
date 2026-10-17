@@ -33,7 +33,7 @@ echo "[4/5] Running database migrations & seeders..."
 php artisan migrate --force --seed || true
 
 # 6. Start server
-PORT_TO_USE="${PORT:-8000}"
+PORT_TO_USE="${PORT:-7860}"
 echo "[5/5] Launching LUXORIA on port $PORT_TO_USE (4 workers)..."
 echo "=========================================="
 

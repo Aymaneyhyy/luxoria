@@ -39,13 +39,13 @@ RUN composer install --no-dev --optimize-autoloader
 # Storage permissions and database setup
 RUN mkdir -p storage/framework/views storage/framework/sessions storage/framework/cache database \
     && touch database/database.sqlite \
-    && chmod -R 777 storage database
+    && chmod -R 777 storage database /var/www/html
 
 # Copy entrypoint script and ensure unix line endings
 COPY docker-entrypoint.sh /var/www/html/backend/docker-entrypoint.sh
 RUN sed -i 's/\r$//' /var/www/html/backend/docker-entrypoint.sh \
     && chmod +x /var/www/html/backend/docker-entrypoint.sh
 
-EXPOSE 8000 10000
+EXPOSE 7860 8000 10000
 
 ENTRYPOINT ["/var/www/html/backend/docker-entrypoint.sh"]
